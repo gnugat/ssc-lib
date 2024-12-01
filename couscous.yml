@@ -1,0 +1,35 @@
+# Install couscous:
+#
+# ```console
+# curl -OS https://couscous.io/couscous.phar
+# php couscous.phar preview
+# ```
+#
+# Preview:
+#
+# ```console
+# couscous preview
+# ```
+#
+# Publish:
+#
+# ```console
+# couscous deploy
+# ```
+template:
+    url: https://github.com/CouscousPHP/Template-Light.git
+
+baseUrl: http://gnugat.github.io/ssc-lib
+
+title: Super Secret Code - Libaries
+subTitle: Decoupled PHP libraries
+
+github:
+    user: gnugat
+    repo: ssc-lib
+
+menu:
+    items:
+        home:
+            text: Home
+            relativeUrl:

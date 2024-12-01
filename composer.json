@@ -1,0 +1,29 @@
+{
+    "name": "ssc/lib",
+    "license": "MIT",
+    "type": "project",
+    "description": "Decoupled PHP libraries",
+    "keywords": ["ssc"],
+    "homepage": "https://gnugat.github.io/ssc-lib",
+    "authors": [
+        {
+            "name": "Loïc Faugeron",
+            "email": "faugeron.loic@gmail.com",
+            "homepage": "https://gnugat.github.io",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.3"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.65",
+        "phpspec/prophecy-phpunit": "^2.3",
+        "phpspec/phpspec": "^7.5",
+        "phpunit/phpunit": "^10.5.38"
+    },
+    "config": {
+        "bump-after-update": true,
+        "sort-packages": true
+    }
+}
