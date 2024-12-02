@@ -1,0 +1,59 @@
+###
+# On `git push --tags`, or `git push origin main`,
+# for each folder in `./packages`, extract commit changes related to their path,
+# and pushes them to the mapped github repo.
+#
+# ```yaml
+# jobs:
+#     split_monorepo:
+#         strategy:
+#             matrix:
+#                 package:
+#                     - 'test-package'
+#         steps:
+#             -
+#                 with:
+#                     package_directory: 'packages/${GITHUB_REF#refs/tags/}'
+#                     repository_organization: 'gnugat'
+#                     repository_name: '${{ matrix.package.split_repository }}'
+# ```
+#
+# Will take the commit changes targetting `./packages/test-package`,
+# and push them to `https://github.com/gnugat/ssc-test-package`.
+#
+# Uses https://github.com/claudiodekker/splitsh-action
+###
+name: Split Monorepo
+
+on:
+    push:
+        branches:
+            - 'main'
+        tags:
+            - '*'
+jobs:
+    split_monorepo:
+        runs-on: ubuntu-latest
+
+        strategy:
+            fail-fast: false
+            matrix:
+                package: []
+
+        steps:
+            -
+                name: Checkout Code
+                uses: actions/checkout@v4
+                with:
+                    fetch-depth: 0i
+            -
+                name: Split package ${{ matrix.packagei }}
+                uses: "claudiodekker/splitsh-action@v1.0.0"
+
+                env:
+                    GITHUB_TOKEN: ${{ secrets.MONOREPO_SPLITTER_PERSONAL_ACCESS_TOKEN }}
+                with:
+                    prefix: "packages/${{ matrix.package }}"
+                    remote: "https://github.com/gnugat/ssc-${{ matrix.package }}.git"
+                    reference: "${{ github.ref_name }}"
+                    as_tag: "${{ startsWith(github.ref, 'refs/tags/') }}"
