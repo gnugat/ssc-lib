@@ -1,0 +1,10 @@
+# Configuration
+/phpspec.yml
+
+# Temporary Files
+/.php_cs.cache
+
+# Vendor Files
+/composer.lock
+/composer.phar
+/vendor/

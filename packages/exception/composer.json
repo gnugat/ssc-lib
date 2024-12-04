@@ -1,0 +1,14 @@
+{
+    "name": "ssc/exception",
+    "type": "library",
+    "description": "SSC - Exception",
+    "license": "MIT",
+    "require": {
+        "php": "^8.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ssc\\Exception\\": "src"
+        }
+    }
+}
