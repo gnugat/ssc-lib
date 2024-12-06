@@ -1,6 +1,4 @@
-# CHANGELOG
-
-## 0.0.2: Created `scc/exception`
+# SSC - Exception
 
 When an error occurs, one of the following exception has to be thrown:
 
@@ -20,10 +18,12 @@ throw NotFoundException::make('No Product found for ID 42')
 ;
 ```
 
-## 0.0.1: First Monorepo Test
+## Want to know more?
 
-* Testing monorepo-builder, round 1
+* [copyright and MIT license](LICENSE)
 
-## 0.0.0: Initiated
+You can find more information in the monorepo that groups all SSC libraries:
+[ssc/lib](https://github.com/gnugat/ssc-lib/releases)
 
-* ssc/lib created
+> _Note_: No contributions accepted in the libraries' individual repositories,
+> Pull Requests and Issues should be submitted to the monorepo linked above instead.
