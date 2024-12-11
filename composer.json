@@ -1,17 +1,15 @@
 {
     "name": "ssc/lib",
+    "type": "project",
     "description": "Decoupled PHP libraries",
     "license": "MIT",
-    "type": "project",
     "keywords": [
         "ssc"
     ],
     "authors": [
         {
             "name": "Loïc Faugeron",
-            "email": "faugeron.loic@gmail.com",
-            "homepage": "https://gnugat.github.io",
-            "role": "Developer"
+            "email": "faugeron.loic@gmail.com"
         }
     ],
     "homepage": "https://gnugat.github.io/ssc-lib",

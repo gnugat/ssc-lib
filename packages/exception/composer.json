@@ -3,6 +3,16 @@
     "type": "library",
     "description": "SSC - Exception",
     "license": "MIT",
+    "keywords": [
+        "ssc"
+    ],
+    "authors": [
+        {
+            "name": "Loïc Faugeron",
+            "email": "faugeron.loic@gmail.com"
+        }
+    ],
+    "homepage": "https://gnugat.github.io/ssc-lib",
     "require": {
         "php": "^8.3"
     },
@@ -10,5 +20,8 @@
         "psr-4": {
             "Ssc\\Exception\\": "src"
         }
+    },
+    "config": {
+        "sort-packages": true
     }
 }
