@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace spec\Ssc\Exception;
 
-use Ssc\Exception\SscException;
 use PhpSpec\ObjectBehavior;
+use Ssc\Exception\SscException;
 
 class ForbiddenExceptionSpec extends ObjectBehavior
 {

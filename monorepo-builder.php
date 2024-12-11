@@ -7,7 +7,7 @@ use Symplify\MonorepoBuilder\Release\ReleaseWorker\PushTagReleaseWorker;
 use Symplify\MonorepoBuilder\Release\ReleaseWorker\TagVersionReleaseWorker;
 
 return static function (MBConfig $mbConfig): void {
-    $mbConfig->packageDirectories([__DIR__ . '/packages']);
+    $mbConfig->packageDirectories([__DIR__.'/packages']);
 
     // for `release`
     $mbConfig->workers([
