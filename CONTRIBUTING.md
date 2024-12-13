@@ -15,6 +15,7 @@ Here's some tips to make you the best contributor ever:
 * [Tests](#tests)
 * [Keeping your fork up-to-date](#keeping-your-fork-up-to-date)
 * [Monorepo Maintenance](#monorepo-maintainance)
+* [Add a new Package](#add-a-new-package)
 
 ## Tests
 
@@ -97,4 +98,100 @@ Alternatively use `major`, `minor`, `patch` instead of the version number:
 
 ```console
 vendor/bin/monorepo-builder release patch # if last version was `v7.0.1`, will release `v7.0.2`
+```
+
+## Add a new Package
+
+### Libraries
+
+To add a new library, first pick a name for it (ideally short, maybe one word).
+
+Example:
+
+* name: `Exception` (snake case: `exception`)
+* composer package name: `ssc/exception`
+* PHP namespace: `Ssc\Exception`
+
+Next, create a new folder in `./packages` with the following tree structure:
+
+```
+./packages/exception/
+├── composer.json
+├── LICENSE
+├── README.md
+├── spec/
+└── src/
+```
+
+Then, add a section in the root `phpspec.yml`:
+
+```yaml
+suites:
+    exception:
+        src_path: packages/exception/src
+        spec_path: packages/exception
+```
+
+After that, add a new line in the root `README.md`:
+
+```
+[...]
+
+## Libraries
+
+* [exception]packages/exception/README.md)
+
+[...]
+```
+Finally, require it in the root `composer.json`, using `*@dev` as a version:
+
+```json
+{
+    "require": {
+        "php": "^8.3",
+        "ssc/exception": "*@dev"
+    }
+}
+```
+
+Don't forget to also add a line in the root `CHANGELOG.md`:
+
+```
+# CHANGELOG
+
+## {{ new_version }}: Created `scc/exception`
+
+When an error occurs, one of the following exception has to be thrown:
+
+* **400** `ClientErrorException`: request with malformed syntax (example: invalid JSON)
+* **401** `UnauthorizedException`: an authentication error (missing or invalid credentials)
+* **403** `ForbiddenException`: an authorization error (credentials found and valid, but not allowed for this resource)
+* **404** `NotFoundException`: an error when trying to locate a resource (doesn't exist or has been removed)
+* **422** `ValidationFailedException`: an error when trying to validate a resource
+* **500** `ServerErrorException`: application crashed
+
+All of those exceptions are a subtype of `SscException` which provides
+the possibility to add an error code:
+
+```php
+throw NotFoundException::make('No Product found for ID 42')
+    ->withCode(4423)
+;
+```
+
+[...]
+```
+
+Finally, add library to `.github/workflows/split_monorepo.yaml`:
+
+```yaml
+jobs:
+    split_monorepo:            
+        runs-on: ubuntu-latest 
+
+        strategy:
+            fail-fast: false
+            matrix:
+                package:
+                    - exception
 ```
