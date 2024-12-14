@@ -116,14 +116,18 @@ Next, create a new folder in `./packages` with the following tree structure:
 
 ```
 ./packages/exception/
+├── .gitignore
+├── .php-cs-fixer.dist.php
 ├── composer.json
+├── phpspec.yml.dist
 ├── LICENSE
 ├── README.md
+├── bin/test.sh
 ├── spec/
 └── src/
 ```
 
-Then, add a section in the root `phpspec.yml`:
+Then, add a section in the root `phpspec.yml.dist`:
 
 ```yaml
 suites:
@@ -181,6 +185,19 @@ throw NotFoundException::make('No Product found for ID 42')
 
 [...]
 ```
+
+Almost done, make sure to update couscous:
+
+```yaml
+menu:
+    items:
+        home:
+            text: Home
+            relativeUrl:
+        exception:
+            text: exception
+            relativeUrl: packages/exception/README.html
+``
 
 Finally, add library to `.github/workflows/split_monorepo.yaml`:
 
