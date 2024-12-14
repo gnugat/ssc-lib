@@ -1,0 +1,33 @@
+{
+    "name": "ssc/cs",
+    "type": "library",
+    "description": "SSC - CS",
+    "license": "MIT",
+    "keywords": [
+        "ssc"
+    ],
+    "authors": [
+        {
+            "name": "Loïc Faugeron",
+            "email": "faugeron.loic@gmail.com"
+        }
+    ],
+    "homepage": "https://gnugat.github.io/ssc-lib",
+    "require": {
+        "php": "^8.3",
+        "friendsofphp/php-cs-fixer": "^3.65"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ssc\\Cs\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "dev\\Ssc\\Cs\\": "dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

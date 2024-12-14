@@ -1,12 +1,36 @@
 # CHANGELOG
 
+## 0.0.4: Created `ssc/cs`
+
+Shared Coding Standards configuration, for SSC.
+
+Provides [PHP CS Fixer](https://cs.symfony.com/) configuration,
+with default for the SSC projects.
+
+Configure in `.php-cs-fixer.dist.php`:
+
+```php
+<?php
+
+return \Ssc\Cs\ConfigBuilder::forPath(__DIR__)
+    ->withLicenseHeader(\Ssc\Cs\Factory\LicenseHeader::forPackage(
+        name: 'ssc/lib',
+        owners: [[
+            'name' => 'Loïc Faugeron',
+            'email' => 'faugeron.loic@gmail.com',
+        ]],
+    ))
+    ->build()
+;
+```
+
 ## 0.0.3: Tidied up project
 
 * Introduced Coding Standards
 * Added License headers
 * Harmonised `composer.json` files
 
-## 0.0.2: Created `scc/exception`
+## 0.0.2: Created `ssc/exception`
 
 When an error occurs, one of the following exception has to be thrown:
 

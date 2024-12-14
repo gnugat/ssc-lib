@@ -1,7 +1,7 @@
+# Temporary files
+/.php-cs-fixer.cache
+
 # Third Party libraries
 /composer.phar
 /composer.lock
 /vendor/
-
-# Temporary files
-/.php-cs-fixer.cache
