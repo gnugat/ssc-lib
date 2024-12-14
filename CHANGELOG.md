@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.0.7: Upgrading `ssc/cs`
+
+* added `config`, `public` and `var` to the list of excluded folders
+
 ## 0.0.6: Fixed coucsous
 
 ## 0.0.5: Tidied up project
