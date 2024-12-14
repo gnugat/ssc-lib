@@ -1,4 +1,5 @@
 # Temporary files
+/*.bak
 /.php-cs-fixer.cache
 /.couscous
 

@@ -85,7 +85,7 @@ class Rules
             'php_unit_strict' => true, // @PhpCsFixer:risky
             'php_unit_test_annotation' => [
                 // Overrides `@Symfony:risky`
-                // uses `annotation` (to allows `it_` prefix, phpspec style) instead of `prefix`
+                // uses `annotation` (to allow `it_` prefix, phpspec style) instead of `prefix`
                 'style' => 'annotation',
             ],
             'php_unit_test_case_static_method_calls' => [ // @PhpCsFixer:risky

@@ -127,6 +127,13 @@ Next, create a new folder in `./packages` with the following tree structure:
 └── src/
 ```
 
+Once the new package is ready,
+make sure to check documentation for spelling errors:
+
+```console
+aspell -c README.md
+```
+
 Then, add a section in the root `phpspec.yml.dist`:
 
 ```yaml
@@ -184,6 +191,12 @@ throw NotFoundException::make('No Product found for ID 42')
 ```
 
 [...]
+```
+
+And to check for spelling errors:
+
+```console
+aspell -c CHANGELOG.md
 ```
 
 Almost done, make sure to update couscous:

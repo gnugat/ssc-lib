@@ -23,11 +23,14 @@ class Finder
             ->in($path)
             ->files()
             ->name('/\.php$/')
-            ->exclude('vendor')
             ->exclude('bin')
             ->exclude('cache')
+            ->exclude('config')
             ->exclude('doc')
             ->exclude('logs')
+            ->exclude('public')
+            ->exclude('var')
+            ->exclude('vendor')
         ;
     }
 }

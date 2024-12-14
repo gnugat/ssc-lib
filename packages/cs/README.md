@@ -21,69 +21,64 @@ return \Ssc\Cs\ConfigBuilder::forPath(__DIR__)
 ;
 ```
 
-The static method `ConfigBuilder::forPath` will return an instance of
-`ConfigBuilder` with default values for the following public properties:
+This will set the following defaults:
 
-* `$configBuilder->finder` (see `./src/Factory/Finder.php`),
-  will look for files:
-    * with the PHP extension (`*.php`)
-    * located in given path and descendant folders
-      (`__DIR__` in example above, which would be the root of your project)
-    * but will not look in folders named
-      `vendor`, `bin`, `cache`, `doc` and `logs`
-* `$configBuilder->parallelConfig` (see `ParallelConfigFactory::detect()`)
-  will enable the parallel runner
-* `$configBuilder->rules` (see `./src/Factory/Rules.php`),
-  will use a custom list of rules
-* `$configBuilder->usingCache` will enable caching
+* find PHP files in the given path excluding those folders:
+    * bin
+    * cache
+    * config
+    * doc
+    * logs
+    * public
+    * var
+    * vendor
+* enable:
+    * caching
+    * parallel runner
+* applies rules from:
+    * [Symfony rule set](https://cs.symfony.com/doc/ruleSets/Symfony.html),
+      all rules enabled, **2 overriden**:
+        * [php_unit_method_casing](https://cs.symfony.com/doc/rules/php_unit/php_unit_method_casing.html),
+          uses `snake_case` (phpspec style) instead of `camel_case`
+        * [visibility_required](https://cs.symfony.com/doc/rules/class_notation/visibility_required.html),
+          explicitly omits `method` (for phpspec test methods) but keeps `const` and `property`
+    * [PHP 5.6 Migration risky rule set](https://cs.symfony.com/doc/ruleSets/PHP56MigrationRisky.html),
+      all rules enabled
+    * [PER-CS risky rule set](https://cs.symfony.com/doc/ruleSets/PERCSRisky.html),
+      all rules enabled
+    * [Symfony risky rule set](https://cs.symfony.com/doc/ruleSets/SymfonyRisky.html),
+      a selection of 15 rules enabled, and **1 overriden**:
+        * [php_unit_test_annotation](https://cs.symfony.com/doc/rules/php_unit/php_unit_test_annotation.html),
+          uses `annotation` (to allow `it_` prefix, phpspec style) instead of `prefix`
+    * [PHP CS Fixer rule set](https://cs.symfony.com/doc/ruleSets/PHPCSFixer.html),
+      a selection of 4 rules enabled
+    * [PHP CS Fixer risky rule set](https://cs.symfony.com/doc/ruleSets/PHPCSFixerRisky.html),
+      a selection of 6 rules enabled
+    * a unique selection of 16 rules
 
-Then, calling the `$configBuilder->build()` method will return an instance of
-`PhpCsFixer\Config` set up with these values.
-
-> **Note**: By default there's a large amount of custom rules set up,
-> but SSC also relies on the following rule set:
+> **Note**: The static method `ConfigBuilder::forPath` will return an instance
+> of `ConfigBuilder` which provides four public attributes:
 >
-> * `@Symfony`
-> * `@PER-CS2.0` (this is included in `@Symfony`)
-> * `@PER-CS1.0` (this is included in `@PER-CS2.0`)
-> * `@PSR12` (this is included in `@PER-CS1.0`)
-> * `@PSR2` (this is included in `@PSR12`)
-> * `@PSR1` (this is included in `@PSR2`)
+> * `finder`, which is set with defaults values returned by
+>   `Ssc\Cs\Factory\Finder::inPath(string $path)`
+> * `parallelConfig`, which is set with defaults values returned by
+>   `PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect()`
+> * `rules`, which is set with defaults values returned by
+>   `Ssc\Cs\Factory\Rules::make()`
+> * `usingCache`, which is set with `true` as a default value
 >
-> * `@PHP56Migration:risky`
->
-> * `@PER-CS:risky`
-> * `@PER-CS2.0:risky` (this is included in `@PER-CS:risky`)
-> * `@PER-CS1.0:risky` (this is included in `@PER-CS2.0:risky`)
-> * `@PSR12:risky` (this is included in `@PER-CS1.0:risky`)
->
-> However, the following rules have been overridden:
->
-> ```php
->     'visibility_required' => [
->         // Overides `@PSR2`
->         // explicitly omits `method`, for phpspec test methods
->         'elements' => ['property', 'const'],
->     ],
->     'php_unit_method_casing' => [
->         // Overides `@Symfony`
->         // uses `snake_case` (phpspec style) instead of `camel_case`
->         'case' => 'snake_case',
->     ],
-> ```
+> Then, calling the `ConfigBuilder->build()` method will return an instance of
+> `PhpCsFixer\Config` set up with these values.
 
 ## Customization
 
-The `ConfigBuilder` attributes are public to allow customization,
-here are some examples.
-
 ### License Header
 
-The `ConfigBuilder->withLicenseHeader` method is a shortcut that allows
-configuring a License Header PHPdoc.
+The `ConfigBuilder->withLicenseHeader(string $licenceHeader)` method is a
+shortcut that allows configuring a License Header PHPdoc.
 
-A factory that provides a template can even be used
-(see `./src/Factory/LicenseHeader.php`):
+With `Ssc\Cs\Factory\LicenseHeader::forPackage(string $name, array $owners, string $template = self::DEFAULT_TEMPLATE)`,
+it's possible to only provide the minimum relevant information:
 
 ```php
 <?php
@@ -103,9 +98,7 @@ return \Ssc\Cs\ConfigBuilder::forPath(__DIR__)
 > **Note**: while `owners` is an array,
 > currently only the first element will be taken into account.
 
-It uses an optional third parameter `template` which looks like this
-(see `LicenseHeader::DEFAULT_TEMPLATE`):
-:
+The default template used is similar to the following:
 
 ```
 This file is part of the {{ package_name }} package.
@@ -117,7 +110,7 @@ file that was distributed with this source code.
 ```
 
 If the format doesn't fit your need you can provide a different template,
-which follows the same schema, ie has the following placeholders:
+it can be any string, with the following placeholders being recognized:
 
 * `{{ package_name }}`
 * `{{ owner_name }}`
@@ -144,9 +137,10 @@ return \Ssc\Cs\ConfigBuilder::forPath(__DIR__)
 It's possible to override the rules used, to either add some or disable some:
 
 ```php
+// using array_merge to add some value, and override existing ones
 $configBuilder->rules = \array_merge($configBuilder->rules, [
-    // @PER-CS2.0 (and SSC) CS specify casts as follow `(int) $total`
-    // Use the line below to have no spaces, `(int)$total`, instead:
+    // With @PER-CS2.0 (and SSC), type casting looks like `(int) $total`
+    // If you prefer no spaces, `(int)$total`, use the following instead:
     'cast_spaces' => 'none',
 
     // SSC requires the `declare(strict_types=1);`,
@@ -158,6 +152,7 @@ $configBuilder->rules = \array_merge($configBuilder->rules, [
 It's also possible to completely override all of them:
 
 ```php
+// setting a new array to rease all previous values and replace them
 $configBuilder->rules = [
     // Use the RuleSet of your choice:
     '@PhpCsFixer' => true,
