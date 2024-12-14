@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.0.5: Tidied up project
+
+* Configured and Applied `ssc/cs` in all of `ssc/lib`
+* Fixed documentation typo
+* Updated couscous
+
 ## 0.0.4: Created `ssc/cs`
 
 Shared Coding Standards configuration, for SSC.
