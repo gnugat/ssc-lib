@@ -17,6 +17,12 @@
         "php": "^8.3",
         "friendsofphp/php-cs-fixer": "^3.65"
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../*"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "Ssc\\Cs\\": "src"

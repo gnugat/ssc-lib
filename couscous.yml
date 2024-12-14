@@ -33,3 +33,9 @@ menu:
         home:
             text: Home
             relativeUrl:
+        cs:
+            text: cs
+            relativeUrl: packages/cs/README.html
+        exception:
+            text: exception
+            relativeUrl: packages/exception/README.html

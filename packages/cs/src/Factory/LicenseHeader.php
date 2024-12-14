@@ -17,9 +17,9 @@ class LicenseHeader
 {
     private const DEFAULT_TEMPLATE = <<<'TPL'
         This file is part of the {{ package_name }} package.
-        
+
         (c) {{ owner_name }} <{{ owner_email }}>
-         
+
         For the full copyright and license information, please view the LICENSE
         file that was distributed with this source code.
         TPL;

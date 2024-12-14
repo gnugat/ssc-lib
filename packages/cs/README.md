@@ -8,7 +8,7 @@ with default for the SSC projects.
 ## Installation
 
 ```console
-composer require ssc/cs
+composer require --dev ssc/cs
 ```
 
 Configure in `.php-cs-fixer.dist.php`:

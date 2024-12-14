@@ -47,7 +47,7 @@ class Rules
                 'elements' => ['property', 'const'],
             ],
 
-           // control_structures
+            // control_structures
             'no_superfluous_elseif' => true, // SSC
             'no_useless_else' => true, // SSC
 

@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the ssc/lib package.
  *
  * (c) Loïc Faugeron <faugeron.loic@gmail.com>
