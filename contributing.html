@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Super Secret Code - Libaries</title>
+
+        <link rel="stylesheet" href="http://gnugat.github.io/ssc-lib/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://gnugat.github.io/ssc-lib/css/font-awesome.min.css">
+        <link rel="stylesheet" href="http://gnugat.github.io/ssc-lib/css/highlight.dark.css">
+        <link rel="stylesheet" href="http://gnugat.github.io/ssc-lib/css/main.css">
+    </head>
+    <body>
+
+        <header class="navbar navbar-default navbar-fixed-top">
+
+            <a class="navbar-brand" href="http://gnugat.github.io/ssc-lib/">
+                Super Secret Code - Libaries
+                <small class="hidden-xs hidden-sm">
+                    Decoupled PHP libraries
+                </small>
+            </a>
+
+                            <a href="https://github.com/gnugat/ssc-lib">
+                    <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+                </a>
+            
+        </header>
+
+        <main class="container-fluid">
+            <div class="row">
+
+                
+                    <nav id="sidebar" class="col-sm-3 col-lg-2" role="navigation">
+
+                        <ul class="nav nav-pills nav-stacked">
+                                                            <li class="">
+                                    <a href="http://gnugat.github.io/ssc-lib/">
+                                        Home
+                                    </a>
+                                </li>
+                                                            <li class="">
+                                    <a href="http://gnugat.github.io/ssc-lib/packages/cs/index.html">
+                                        cs
+                                    </a>
+                                </li>
+                                                            <li class="">
+                                    <a href="http://gnugat.github.io/ssc-lib/packages/exception/index.html">
+                                        exception
+                                    </a>
+                                </li>
+                                                    </ul>
+
+                    </nav>
+
+                
+                <section id="content" class="col-sm-offset-3 col-lg-offset-2 col-sm-9 col-lg-10">
+                    <h1 id="how-to-contribute">How to contribute</h1>
+<p>Everybody should be able to help. Here's how you can make this project more
+awesome:</p>
+<ol>
+<li><a href="https://github.com/gnugat/ssc-lib/fork_select">Fork it</a></li>
+<li>improve it</li>
+<li>submit a <a href="https://help.github.com/articles/creating-a-pull-request">pull request</a></li>
+</ol>
+<p>Your work will then be reviewed as soon as possible (suggestions about some
+changes, improvements or alternatives may be given).</p>
+<p>Here's some tips to make you the best contributor ever:</p>
+<ul>
+<li><a href="#tests">Tests</a></li>
+<li><a href="#keeping-your-fork-up-to-date">Keeping your fork up-to-date</a></li>
+<li><a href="#monorepo-maintainance">Monorepo Maintenance</a></li>
+<li><a href="#add-a-new-package">Add a new Package</a></li>
+</ul>
+<h2 id="tests">Tests</h2>
+<p>Tests can be run using the following script:</p>
+<pre><code class="language-console">./bin/test.sh</code></pre>
+<p>It simply updates composer dependencies (with an optimized autoloading) and then
+run the PHPUnit test suite.</p>
+<h2 id="keeping-your-fork-up-to-date">Keeping your fork up-to-date</h2>
+<p>To keep your fork up-to-date, you should track the upstream (original) one
+using the following command:</p>
+<pre><code class="language-console">git remote add upstream https://github.com/gnugat/ssc-lib.git</code></pre>
+<p>Then get the upstream changes:</p>
+<pre><code class="language-console">git checkout main
+git pull --rebase origin main
+git pull --rebase upstream main
+git checkout &lt;your-branch&gt;
+git rebase main</code></pre>
+<p>Finally, publish your changes:</p>
+<pre><code class="language-console">git push -f origin &lt;your-branch&gt;</code></pre>
+<p>Your pull request will be automatically updated.</p>
+<h2 id="monorepo-maintenance">Monorepo Maintenance</h2>
+<p>Instead of managing X packages each in their own repo, they're all being managed in <code>ssc/lib</code>, as a monorepo.</p>
+<p>To help maintain the monorepo, we use the tool <a href="https://github.com/symplify/monorepo-builder">monorepo-builder</a>.</p>
+<h3 id="bump-interdependency">bump-interdependency</h3>
+<p>When releasing a version for the monorepo (eg <code>4.0</code>), and we need to bump the packages that depend on it to version <code>^4.0</code>:</p>
+<pre><code class="language-console">vendor/bin/monorepo-builder bump-interdependency "^4.0"</code></pre>
+<h3 id="validate">validate</h3>
+<p>Will check each packages, and make sure for those who depend on the same package that they also depend on the same version:</p>
+<pre><code class="language-console">vendor/bin/monorepo-builder validate</code></pre>
+<h3 id="split">split</h3>
+<p>This is done via Github Actions (and <a href="https://github.com/claudiodekker/splitsh-action">claudiodekker/splitsh-action</a>.</p>
+<p>Check configuration at <code>.github/workflows/split_monorepo.yaml</code>.</p>
+<h3 id="release">release</h3>
+<p>Will:</p>
+<ul>
+<li>create a new git tag</li>
+<li>push the new git tag</li>
+</ul>
+<pre><code class="language-console">vendor/bin/monorepo-builder release v7.0</code></pre>
+<p>Alternatively use <code>major</code>, <code>minor</code>, <code>patch</code> instead of the version number:</p>
+<pre><code class="language-console">vendor/bin/monorepo-builder release patch # if last version was `v7.0.1`, will release `v7.0.2`</code></pre>
+<h2 id="add-a-new-package">Add a new Package</h2>
+<h3 id="libraries">Libraries</h3>
+<p>To add a new library, first pick a name for it (ideally short, maybe one word).</p>
+<p>Example:</p>
+<ul>
+<li>name: <code>Exception</code> (snake case: <code>exception</code>)</li>
+<li>composer package name: <code>ssc/exception</code></li>
+<li>PHP namespace: <code>Ssc\Exception</code></li>
+</ul>
+<p>Next, create a new folder in <code>./packages</code> with the following tree structure:</p>
+<pre><code>./packages/exception/
+├── .gitignore
+├── .php-cs-fixer.dist.php
+├── composer.json
+├── phpspec.yml.dist
+├── LICENSE
+├── README.md
+├── bin/test.sh
+├── spec/
+└── src/</code></pre>
+<p>Then, add a section in the root <code>phpspec.yml.dist</code>:</p>
+<pre><code class="language-yaml">suites:
+    exception:
+        src_path: packages/exception/src
+        spec_path: packages/exception</code></pre>
+<p>After that, add a new line in the root <code>README.md</code>:</p>
+<pre><code>[...]
+
+## Libraries
+
+* [exception](./packages/exception/index.html)
+
+[...]</code></pre>
+<p>Finally, require it in the root <code>composer.json</code>, using <code>*@dev</code> as a version:</p>
+<pre><code class="language-json">{
+    "require": {
+        "php": "^8.3",
+        "ssc/exception": "*@dev"
+    }
+}</code></pre>
+<p>Don't forget to also add a line in the root <code>CHANGELOG.md</code>:</p>
+<pre><code># CHANGELOG
+
+## {{ new_version }}: Created `scc/exception`
+
+When an error occurs, one of the following exception has to be thrown:
+
+* **400** `ClientErrorException`: request with malformed syntax (example: invalid JSON)
+* **401** `UnauthorizedException`: an authentication error (missing or invalid credentials)
+* **403** `ForbiddenException`: an authorization error (credentials found and valid, but not allowed for this resource)
+* **404** `NotFoundException`: an error when trying to locate a resource (doesn't exist or has been removed)
+* **422** `ValidationFailedException`: an error when trying to validate a resource
+* **500** `ServerErrorException`: application crashed
+
+All of those exceptions are a subtype of `SscException` which provides
+the possibility to add an error code:
+
+```php
+throw NotFoundException::make('No Product found for ID 42')
+    -&gt;withCode(4423)
+;</code></pre>
+<p>[...]</p>
+<pre><code>
+Almost done, make sure to update couscous:
+
+```yaml
+menu:
+    items:
+        home:
+            text: Home
+            relativeUrl:
+        exception:
+            text: exception
+            relativeUrl: packages/exception/README.html
+``
+
+Finally, add library to `.github/workflows/split_monorepo.yaml`:
+
+```yaml
+jobs:
+    split_monorepo:            
+        runs-on: ubuntu-latest 
+
+        strategy:
+            fail-fast: false
+            matrix:
+                package:
+                    - exception</code></pre>
+                </section>
+
+            </div>
+        </main>
+
+        <footer>
+            <div class="container-fluid">
+                <p class="text-muted">
+                    website generated with <a href="http://couscous.io" title="Markdown website generator">Couscous</a>
+                </p>
+            </div>
+        </footer>
+
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="//yastatic.net/highlightjs/8.2/highlight.min.js"></script>
+
+        <script>
+            $(function() {
+                $("section>h1").wrap('<div class="page-header" />');
+                // Syntax highlighting
+                hljs.initHighlightingOnLoad();
+            });
+        </script>
+
+    </body>
+</html>

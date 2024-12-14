@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Super Secret Code - Libaries</title>
+
+        <link rel="stylesheet" href="http://gnugat.github.io/ssc-lib/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://gnugat.github.io/ssc-lib/css/font-awesome.min.css">
+        <link rel="stylesheet" href="http://gnugat.github.io/ssc-lib/css/highlight.dark.css">
+        <link rel="stylesheet" href="http://gnugat.github.io/ssc-lib/css/main.css">
+    </head>
+    <body>
+
+        <header class="navbar navbar-default navbar-fixed-top">
+
+            <a class="navbar-brand" href="http://gnugat.github.io/ssc-lib/">
+                Super Secret Code - Libaries
+                <small class="hidden-xs hidden-sm">
+                    Decoupled PHP libraries
+                </small>
+            </a>
+
+                            <a href="https://github.com/gnugat/ssc-lib">
+                    <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+                </a>
+            
+        </header>
+
+        <main class="container-fluid">
+            <div class="row">
+
+                
+                    <nav id="sidebar" class="col-sm-3 col-lg-2" role="navigation">
+
+                        <ul class="nav nav-pills nav-stacked">
+                                                            <li class="">
+                                    <a href="http://gnugat.github.io/ssc-lib/">
+                                        Home
+                                    </a>
+                                </li>
+                                                            <li class="">
+                                    <a href="http://gnugat.github.io/ssc-lib/packages/cs/index.html">
+                                        cs
+                                    </a>
+                                </li>
+                                                            <li class="">
+                                    <a href="http://gnugat.github.io/ssc-lib/packages/exception/index.html">
+                                        exception
+                                    </a>
+                                </li>
+                                                    </ul>
+
+                    </nav>
+
+                
+                <section id="content" class="col-sm-offset-3 col-lg-offset-2 col-sm-9 col-lg-10">
+                    <h1 id="ssc---cs">SSC - CS</h1>
+<p>Shared Coding Standards configuration, for SSC.</p>
+<p>Provides <a href="https://cs.symfony.com/">PHP CS Fixer</a> configuration,
+with default for the SSC projects.</p>
+<h2 id="installation">Installation</h2>
+<pre><code class="language-console">composer require --dev ssc/cs</code></pre>
+<p>Configure in <code>.php-cs-fixer.dist.php</code>:</p>
+<pre><code class="language-php">&lt;?php
+
+return \Ssc\Cs\ConfigBuilder::forPath(__DIR__)
+    -&gt;build()
+;</code></pre>
+<p>The static method <code>ConfigBuilder::forPath</code> will return an instance of
+<code>ConfigBuilder</code> with default values for the following public properties:</p>
+<ul>
+<li><code>$configBuilder-&gt;finder</code> (see <code>./src/Factory/Finder.php</code>),
+will look for files:
+<ul>
+<li>with the PHP extension (<code>*.php</code>)</li>
+<li>located in given path and descendant folders
+(<code>__DIR__</code> in example above, which would be the root of your project)</li>
+<li>but will not look in folders named
+<code>vendor</code>, <code>bin</code>, <code>cache</code>, <code>doc</code> and <code>logs</code></li>
+</ul></li>
+<li><code>$configBuilder-&gt;parallelConfig</code> (see <code>ParallelConfigFactory::detect()</code>)
+will enable the parallel runner</li>
+<li><code>$configBuilder-&gt;rules</code> (see <code>./src/Factory/Rules.php</code>),
+will use a custom list of rules</li>
+<li><code>$configBuilder-&gt;usingCache</code> will enable caching</li>
+</ul>
+<p>Then, calling the <code>$configBuilder-&gt;build()</code> method will return an instance of
+<code>PhpCsFixer\Config</code> set up with these values.</p>
+<blockquote>
+<p><strong>Note</strong>: By default there's a large amount of custom rules set up,
+but SSC also relies on the following rule set:</p>
+<ul>
+<li>
+<p><code>@Symfony</code></p>
+</li>
+<li>
+<p><code>@PER-CS2.0</code> (this is included in <code>@Symfony</code>)</p>
+</li>
+<li>
+<p><code>@PER-CS1.0</code> (this is included in <code>@PER-CS2.0</code>)</p>
+</li>
+<li>
+<p><code>@PSR12</code> (this is included in <code>@PER-CS1.0</code>)</p>
+</li>
+<li>
+<p><code>@PSR2</code> (this is included in <code>@PSR12</code>)</p>
+</li>
+<li>
+<p><code>@PSR1</code> (this is included in <code>@PSR2</code>)</p>
+</li>
+<li>
+<p><code>@PHP56Migration:risky</code></p>
+</li>
+<li>
+<p><code>@PER-CS:risky</code></p>
+</li>
+<li>
+<p><code>@PER-CS2.0:risky</code> (this is included in <code>@PER-CS:risky</code>)</p>
+</li>
+<li>
+<p><code>@PER-CS1.0:risky</code> (this is included in <code>@PER-CS2.0:risky</code>)</p>
+</li>
+<li>
+<p><code>@PSR12:risky</code> (this is included in <code>@PER-CS1.0:risky</code>)</p>
+</li>
+</ul>
+<p>However, the following rules have been overridden:</p>
+<pre><code class="language-php">    'visibility_required' =&gt; [
+        // Overides `@PSR2`
+        // explicitly omits `method`, for phpspec test methods
+        'elements' =&gt; ['property', 'const'],
+    ],
+    'php_unit_method_casing' =&gt; [
+        // Overides `@Symfony`
+        // uses `snake_case` (phpspec style) instead of `camel_case`
+        'case' =&gt; 'snake_case',
+    ],</code></pre>
+</blockquote>
+<h2 id="customization">Customization</h2>
+<p>The <code>ConfigBuilder</code> attributes are public to allow customization,
+here are some examples.</p>
+<h3 id="license-header">License Header</h3>
+<p>The <code>ConfigBuilder-&gt;withLicenseHeader</code> method is a shortcut that allows
+configuring a License Header PHPdoc.</p>
+<p>A factory that provides a template can even be used
+(see <code>./src/Factory/LicenseHeader.php</code>):</p>
+<pre><code class="language-php">&lt;?php
+
+return \Ssc\Cs\ConfigBuilder::forPath(__DIR__)
+    -&gt;withLicenseHeader(\Ssc\Cs\Factory\LicenseHeader::forPackage(
+        name: 'ssc/lib',
+        owners: [[
+            'name' =&gt; 'Loïc Faugeron',
+            'email' =&gt; 'faugeron.loic@gmail.com',
+        ]],
+    ))
+    -&gt;build()
+;</code></pre>
+<blockquote>
+<p><strong>Note</strong>: while <code>owners</code> is an array,
+currently only the first element will be taken into account.</p>
+</blockquote>
+<dl>
+<dt>It uses an optional third parameter <code>template</code> which looks like this</dt>
+<dt>(see <code>LicenseHeader::DEFAULT_TEMPLATE</code>):</dt>
+<dd></dd>
+</dl>
+<pre><code>This file is part of the {{ package_name }} package.
+
+(c) {{ owner_name }} &lt;{{ owner_email }}&gt;
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.</code></pre>
+<p>If the format doesn't fit your need you can provide a different template,
+which follows the same schema, ie has the following placeholders:</p>
+<ul>
+<li><code>{{ package_name }}</code></li>
+<li><code>{{ owner_name }}</code></li>
+<li><code>{{ owner_email }}</code></li>
+</ul>
+<p>Or you can alternatively skip the template and pass the header as a string:</p>
+<pre><code class="language-php">&lt;?php
+
+$licenceHeader =&lt;&lt;&lt;TXT
+ALL YOUR BASE ARE BELONG TO US
+HA HA HA HA ....
+TXT;
+
+return \Ssc\Cs\ConfigBuilder::forPath(__DIR__)
+    -&gt;withLicenseHeader($licenceHeader);
+    -&gt;build()
+;</code></pre>
+<h3 id="rules">Rules</h3>
+<p>It's possible to override the rules used, to either add some or disable some:</p>
+<pre><code class="language-php">$configBuilder-&gt;rules = \array_merge($configBuilder-&gt;rules, [
+    // @PER-CS2.0 (and SSC) CS specify casts as follow `(int) $total`
+    // Use the line below to have no spaces, `(int)$total`, instead:
+    'cast_spaces' =&gt; 'none',
+
+    // SSC requires the `declare(strict_types=1);`,
+    // Use the line below to disable it:
+    'declare_strict_types' =&gt; false,
+]);</code></pre>
+<p>It's also possible to completely override all of them:</p>
+<pre><code class="language-php">$configBuilder-&gt;rules = [
+    // Use the RuleSet of your choice:
+    '@PhpCsFixer' =&gt; true,
+
+    // You can also throw in some rules that fit your team:
+    'psr_autoloading' =&gt; true,
+];</code></pre>
+<h2 id="want-to-know-more">Want to know more?</h2>
+<ul>
+<li><a href="LICENSE">copyright and MIT license</a></li>
+</ul>
+<p>You can find more information in the monorepo that groups all SSC libraries:
+<a href="https://github.com/gnugat/ssc-lib/releases">ssc/lib</a></p>
+<blockquote>
+<p><em>Note</em>: No contributions accepted in the libraries' individual repositories,
+Pull Requests and Issues should be submitted to the monorepo linked above instead.</p>
+</blockquote>
+                </section>
+
+            </div>
+        </main>
+
+        <footer>
+            <div class="container-fluid">
+                <p class="text-muted">
+                    website generated with <a href="http://couscous.io" title="Markdown website generator">Couscous</a>
+                </p>
+            </div>
+        </footer>
+
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="//yastatic.net/highlightjs/8.2/highlight.min.js"></script>
+
+        <script>
+            $(function() {
+                $("section>h1").wrap('<div class="page-header" />');
+                // Syntax highlighting
+                hljs.initHighlightingOnLoad();
+            });
+        </script>
+
+    </body>
+</html>

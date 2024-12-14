@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Super Secret Code - Libaries</title>
+
+        <link rel="stylesheet" href="http://gnugat.github.io/ssc-lib/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://gnugat.github.io/ssc-lib/css/font-awesome.min.css">
+        <link rel="stylesheet" href="http://gnugat.github.io/ssc-lib/css/highlight.dark.css">
+        <link rel="stylesheet" href="http://gnugat.github.io/ssc-lib/css/main.css">
+    </head>
+    <body>
+
+        <header class="navbar navbar-default navbar-fixed-top">
+
+            <a class="navbar-brand" href="http://gnugat.github.io/ssc-lib/">
+                Super Secret Code - Libaries
+                <small class="hidden-xs hidden-sm">
+                    Decoupled PHP libraries
+                </small>
+            </a>
+
+                            <a href="https://github.com/gnugat/ssc-lib">
+                    <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+                </a>
+            
+        </header>
+
+        <main class="container-fluid">
+            <div class="row">
+
+                
+                    <nav id="sidebar" class="col-sm-3 col-lg-2" role="navigation">
+
+                        <ul class="nav nav-pills nav-stacked">
+                                                            <li class="">
+                                    <a href="http://gnugat.github.io/ssc-lib/">
+                                        Home
+                                    </a>
+                                </li>
+                                                            <li class="">
+                                    <a href="http://gnugat.github.io/ssc-lib/packages/cs/index.html">
+                                        cs
+                                    </a>
+                                </li>
+                                                            <li class="">
+                                    <a href="http://gnugat.github.io/ssc-lib/packages/exception/index.html">
+                                        exception
+                                    </a>
+                                </li>
+                                                    </ul>
+
+                    </nav>
+
+                
+                <section id="content" class="col-sm-offset-3 col-lg-offset-2 col-sm-9 col-lg-10">
+                    <h1 id="changelog">CHANGELOG</h1>
+<h2 id="006-fixed-coucsous">0.0.6: Fixed coucsous</h2>
+<h2 id="005-tidied-up-project">0.0.5: Tidied up project</h2>
+<ul>
+<li>Configured and Applied <code>ssc/cs</code> in all of <code>ssc/lib</code></li>
+<li>Fixed documentation typo</li>
+<li>Updated couscous</li>
+</ul>
+<h2 id="004-created">0.0.4: Created <code>ssc/cs</code></h2>
+<p>Shared Coding Standards configuration, for SSC.</p>
+<p>Provides <a href="https://cs.symfony.com/">PHP CS Fixer</a> configuration,
+with default for the SSC projects.</p>
+<p>Configure in <code>.php-cs-fixer.dist.php</code>:</p>
+<pre><code class="language-php">&lt;?php
+
+return \Ssc\Cs\ConfigBuilder::forPath(__DIR__)
+    -&gt;withLicenseHeader(\Ssc\Cs\Factory\LicenseHeader::forPackage(
+        name: 'ssc/lib',
+        owners: [[
+            'name' =&gt; 'Loïc Faugeron',
+            'email' =&gt; 'faugeron.loic@gmail.com',
+        ]],
+    ))
+    -&gt;build()
+;</code></pre>
+<h2 id="003-tidied-up-project">0.0.3: Tidied up project</h2>
+<ul>
+<li>Introduced Coding Standards</li>
+<li>Added License headers</li>
+<li>Harmonised <code>composer.json</code> files</li>
+</ul>
+<h2 id="002-created">0.0.2: Created <code>ssc/exception</code></h2>
+<p>When an error occurs, one of the following exception has to be thrown:</p>
+<ul>
+<li><strong>400</strong> <code>ClientErrorException</code>: request with malformed syntax (example: invalid JSON)</li>
+<li><strong>401</strong> <code>UnauthorizedException</code>: an authentication error (missing or invalid credentials)</li>
+<li><strong>403</strong> <code>ForbiddenException</code>: an authorization error (credentials found and valid, but not allowed for this resource)</li>
+<li><strong>404</strong> <code>NotFoundException</code>: an error when trying to locate a resource (doesn't exist or has been removed)</li>
+<li><strong>422</strong> <code>ValidationFailedException</code>: an error when trying to validate a resource</li>
+<li><strong>500</strong> <code>ServerErrorException</code>: application crashed</li>
+</ul>
+<p>All of those exceptions are a subtype of <code>SscException</code> which provides
+the possibility to add an error code:</p>
+<pre><code class="language-php">throw NotFoundException::make('No Product found for ID 42')
+    -&gt;withCode(4423)
+;</code></pre>
+<h2 id="001-first-monorepo-test">0.0.1: First Monorepo Test</h2>
+<ul>
+<li>Testing monorepo-builder, round 1</li>
+</ul>
+<h2 id="000-initiated">0.0.0: Initiated</h2>
+<ul>
+<li>ssc/lib created</li>
+</ul>
+                </section>
+
+            </div>
+        </main>
+
+        <footer>
+            <div class="container-fluid">
+                <p class="text-muted">
+                    website generated with <a href="http://couscous.io" title="Markdown website generator">Couscous</a>
+                </p>
+            </div>
+        </footer>
+
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="//yastatic.net/highlightjs/8.2/highlight.min.js"></script>
+
+        <script>
+            $(function() {
+                $("section>h1").wrap('<div class="page-header" />');
+                // Syntax highlighting
+                hljs.initHighlightingOnLoad();
+            });
+        </script>
+
+    </body>
+</html>

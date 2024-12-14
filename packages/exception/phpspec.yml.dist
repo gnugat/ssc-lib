@@ -1,6 +1,0 @@
-suites:
-    exception:
-        namespace: Ssc\Exception
-        psr4_prefix: Ssc\Exception
-        src_path: src
-        spec_path: .
