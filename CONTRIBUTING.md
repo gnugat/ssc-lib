@@ -55,7 +55,7 @@ git push -f origin <your-branch>
 
 Your pull request will be automatically updated.
 
-## Monorepo Maintainance
+## Monorepo Maintenance
 
 Instead of managing X packages each in their own repo, they're all being managed in `ssc/lib`, as a monorepo.
 
@@ -63,7 +63,7 @@ To help maintain the monorepo, we use the tool [monorepo-builder](https://github
 
 ### bump-interdependency
 
-When releasing a version for the monorepo (eg `4.0`), and we need tu bump the packages that depend on it to version `^4.0`:
+When releasing a version for the monorepo (eg `4.0`), and we need to bump the packages that depend on it to version `^4.0`:
 
 ```console
 vendor/bin/monorepo-builder bump-interdependency "^4.0"
