@@ -139,7 +139,7 @@ After that, add a new line in the root `README.md`:
 
 ## Libraries
 
-* [exception]packages/exception/README.md)
+* [exception](./packages/exception/README.md)
 
 [...]
 ```

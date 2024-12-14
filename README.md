@@ -8,7 +8,8 @@ Decoupled PHP libraries.
 
 ## Libraries
 
-* [exception]packages/exception/README.md)
+* [cs](./packages/cs/README.md)
+* [exception](./packages/exception/README.md)
 
 ## Want to know more?
 

@@ -22,6 +22,7 @@
         "phpspec/phpspec": "^7.5",
         "phpspec/prophecy-phpunit": "^2.3",
         "phpunit/phpunit": "^10.5.38",
+        "ssc/cs": "*@dev",
         "symplify/monorepo-builder": "^11.2.22"
     },
     "repositories": [
