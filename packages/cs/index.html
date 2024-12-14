@@ -68,84 +68,72 @@ with default for the SSC projects.</p>
 return \Ssc\Cs\ConfigBuilder::forPath(__DIR__)
     -&gt;build()
 ;</code></pre>
-<p>The static method <code>ConfigBuilder::forPath</code> will return an instance of
-<code>ConfigBuilder</code> with default values for the following public properties:</p>
+<p>This will set the following defaults:</p>
 <ul>
-<li><code>$configBuilder-&gt;finder</code> (see <code>./src/Factory/Finder.php</code>),
-will look for files:
+<li>find PHP files in the given path excluding those folders:
 <ul>
-<li>with the PHP extension (<code>*.php</code>)</li>
-<li>located in given path and descendant folders
-(<code>__DIR__</code> in example above, which would be the root of your project)</li>
-<li>but will not look in folders named
-<code>vendor</code>, <code>bin</code>, <code>cache</code>, <code>doc</code> and <code>logs</code></li>
+<li>bin</li>
+<li>cache</li>
+<li>config</li>
+<li>doc</li>
+<li>logs</li>
+<li>public</li>
+<li>var</li>
+<li>vendor</li>
 </ul></li>
-<li><code>$configBuilder-&gt;parallelConfig</code> (see <code>ParallelConfigFactory::detect()</code>)
-will enable the parallel runner</li>
-<li><code>$configBuilder-&gt;rules</code> (see <code>./src/Factory/Rules.php</code>),
-will use a custom list of rules</li>
-<li><code>$configBuilder-&gt;usingCache</code> will enable caching</li>
-</ul>
-<p>Then, calling the <code>$configBuilder-&gt;build()</code> method will return an instance of
-<code>PhpCsFixer\Config</code> set up with these values.</p>
-<blockquote>
-<p><strong>Note</strong>: By default there's a large amount of custom rules set up,
-but SSC also relies on the following rule set:</p>
+<li>enable:
 <ul>
-<li>
-<p><code>@Symfony</code></p>
-</li>
-<li>
-<p><code>@PER-CS2.0</code> (this is included in <code>@Symfony</code>)</p>
-</li>
-<li>
-<p><code>@PER-CS1.0</code> (this is included in <code>@PER-CS2.0</code>)</p>
-</li>
-<li>
-<p><code>@PSR12</code> (this is included in <code>@PER-CS1.0</code>)</p>
-</li>
-<li>
-<p><code>@PSR2</code> (this is included in <code>@PSR12</code>)</p>
-</li>
-<li>
-<p><code>@PSR1</code> (this is included in <code>@PSR2</code>)</p>
-</li>
-<li>
-<p><code>@PHP56Migration:risky</code></p>
-</li>
-<li>
-<p><code>@PER-CS:risky</code></p>
-</li>
-<li>
-<p><code>@PER-CS2.0:risky</code> (this is included in <code>@PER-CS:risky</code>)</p>
-</li>
-<li>
-<p><code>@PER-CS1.0:risky</code> (this is included in <code>@PER-CS2.0:risky</code>)</p>
-</li>
-<li>
-<p><code>@PSR12:risky</code> (this is included in <code>@PER-CS1.0:risky</code>)</p>
-</li>
+<li>caching</li>
+<li>parallel runner</li>
+</ul></li>
+<li>applies rules from:
+<ul>
+<li><a href="https://cs.symfony.com/doc/ruleSets/Symfony.html">Symfony rule set</a>,
+all rules enabled, <strong>2 overriden</strong>:
+<ul>
+<li><a href="https://cs.symfony.com/doc/rules/php_unit/php_unit_method_casing.html">php_unit_method_casing</a>,
+uses <code>snake_case</code> (phpspec style) instead of <code>camel_case</code></li>
+<li><a href="https://cs.symfony.com/doc/rules/class_notation/visibility_required.html">visibility_required</a>,
+explicitly omits <code>method</code> (for phpspec test methods) but keeps <code>const</code> and <code>property</code></li>
+</ul></li>
+<li><a href="https://cs.symfony.com/doc/ruleSets/PHP56MigrationRisky.html">PHP 5.6 Migration risky rule set</a>,
+all rules enabled</li>
+<li><a href="https://cs.symfony.com/doc/ruleSets/PERCSRisky.html">PER-CS risky rule set</a>,
+all rules enabled</li>
+<li><a href="https://cs.symfony.com/doc/ruleSets/SymfonyRisky.html">Symfony risky rule set</a>,
+a selection of 15 rules enabled, and <strong>1 overriden</strong>:
+<ul>
+<li><a href="https://cs.symfony.com/doc/rules/php_unit/php_unit_test_annotation.html">php_unit_test_annotation</a>,
+uses <code>annotation</code> (to allow <code>it_</code> prefix, phpspec style) instead of <code>prefix</code></li>
+</ul></li>
+<li><a href="https://cs.symfony.com/doc/ruleSets/PHPCSFixer.html">PHP CS Fixer rule set</a>,
+a selection of 4 rules enabled</li>
+<li><a href="https://cs.symfony.com/doc/ruleSets/PHPCSFixerRisky.html">PHP CS Fixer risky rule set</a>,
+a selection of 6 rules enabled</li>
+<li>a unique selection of 16 rules</li>
+</ul></li>
 </ul>
-<p>However, the following rules have been overridden:</p>
-<pre><code class="language-php">    'visibility_required' =&gt; [
-        // Overides `@PSR2`
-        // explicitly omits `method`, for phpspec test methods
-        'elements' =&gt; ['property', 'const'],
-    ],
-    'php_unit_method_casing' =&gt; [
-        // Overides `@Symfony`
-        // uses `snake_case` (phpspec style) instead of `camel_case`
-        'case' =&gt; 'snake_case',
-    ],</code></pre>
+<blockquote>
+<p><strong>Note</strong>: The static method <code>ConfigBuilder::forPath</code> will return an instance
+of <code>ConfigBuilder</code> which provides four public attributes:</p>
+<ul>
+<li><code>finder</code>, which is set with defaults values returned by
+<code>Ssc\Cs\Factory\Finder::inPath(string $path)</code></li>
+<li><code>parallelConfig</code>, which is set with defaults values returned by
+<code>PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect()</code></li>
+<li><code>rules</code>, which is set with defaults values returned by
+<code>Ssc\Cs\Factory\Rules::make()</code></li>
+<li><code>usingCache</code>, which is set with <code>true</code> as a default value</li>
+</ul>
+<p>Then, calling the <code>ConfigBuilder-&gt;build()</code> method will return an instance of
+<code>PhpCsFixer\Config</code> set up with these values.</p>
 </blockquote>
 <h2 id="customization">Customization</h2>
-<p>The <code>ConfigBuilder</code> attributes are public to allow customization,
-here are some examples.</p>
 <h3 id="license-header">License Header</h3>
-<p>The <code>ConfigBuilder-&gt;withLicenseHeader</code> method is a shortcut that allows
-configuring a License Header PHPdoc.</p>
-<p>A factory that provides a template can even be used
-(see <code>./src/Factory/LicenseHeader.php</code>):</p>
+<p>The <code>ConfigBuilder-&gt;withLicenseHeader(string $licenceHeader)</code> method is a
+shortcut that allows configuring a License Header PHPdoc.</p>
+<p>With <code>Ssc\Cs\Factory\LicenseHeader::forPackage(string $name, array $owners, string $template = self::DEFAULT_TEMPLATE)</code>,
+it's possible to only provide the minimum relevant information:</p>
 <pre><code class="language-php">&lt;?php
 
 return \Ssc\Cs\ConfigBuilder::forPath(__DIR__)
@@ -162,11 +150,7 @@ return \Ssc\Cs\ConfigBuilder::forPath(__DIR__)
 <p><strong>Note</strong>: while <code>owners</code> is an array,
 currently only the first element will be taken into account.</p>
 </blockquote>
-<dl>
-<dt>It uses an optional third parameter <code>template</code> which looks like this</dt>
-<dt>(see <code>LicenseHeader::DEFAULT_TEMPLATE</code>):</dt>
-<dd></dd>
-</dl>
+<p>The default template used is similar to the following:</p>
 <pre><code>This file is part of the {{ package_name }} package.
 
 (c) {{ owner_name }} &lt;{{ owner_email }}&gt;
@@ -174,7 +158,7 @@ currently only the first element will be taken into account.</p>
 For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code.</code></pre>
 <p>If the format doesn't fit your need you can provide a different template,
-which follows the same schema, ie has the following placeholders:</p>
+it can be any string, with the following placeholders being recognized:</p>
 <ul>
 <li><code>{{ package_name }}</code></li>
 <li><code>{{ owner_name }}</code></li>
@@ -194,9 +178,10 @@ return \Ssc\Cs\ConfigBuilder::forPath(__DIR__)
 ;</code></pre>
 <h3 id="rules">Rules</h3>
 <p>It's possible to override the rules used, to either add some or disable some:</p>
-<pre><code class="language-php">$configBuilder-&gt;rules = \array_merge($configBuilder-&gt;rules, [
-    // @PER-CS2.0 (and SSC) CS specify casts as follow `(int) $total`
-    // Use the line below to have no spaces, `(int)$total`, instead:
+<pre><code class="language-php">// using array_merge to add some value, and override existing ones
+$configBuilder-&gt;rules = \array_merge($configBuilder-&gt;rules, [
+    // With @PER-CS2.0 (and SSC), type casting looks like `(int) $total`
+    // If you prefer no spaces, `(int)$total`, use the following instead:
     'cast_spaces' =&gt; 'none',
 
     // SSC requires the `declare(strict_types=1);`,
@@ -204,7 +189,8 @@ return \Ssc\Cs\ConfigBuilder::forPath(__DIR__)
     'declare_strict_types' =&gt; false,
 ]);</code></pre>
 <p>It's also possible to completely override all of them:</p>
-<pre><code class="language-php">$configBuilder-&gt;rules = [
+<pre><code class="language-php">// setting a new array to rease all previous values and replace them
+$configBuilder-&gt;rules = [
     // Use the RuleSet of your choice:
     '@PhpCsFixer' =&gt; true,
 

@@ -132,6 +132,9 @@ git rebase main</code></pre>
 ├── bin/test.sh
 ├── spec/
 └── src/</code></pre>
+<p>Once the new package is ready,
+make sure to check documentation for spelling errors:</p>
+<pre><code class="language-console">aspell -c README.md</code></pre>
 <p>Then, add a section in the root <code>phpspec.yml.dist</code>:</p>
 <pre><code class="language-yaml">suites:
     exception:
@@ -175,10 +178,12 @@ throw NotFoundException::make('No Product found for ID 42')
 ;</code></pre>
 <p>[...]</p>
 <pre><code>
-Almost done, make sure to update couscous:
+And to check for spelling errors:
 
-```yaml
-menu:
+```console
+aspell -c CHANGELOG.md</code></pre>
+<p>Almost done, make sure to update couscous:</p>
+<pre><code class="language-yaml">menu:
     items:
         home:
             text: Home
