@@ -37,6 +37,7 @@ echo ''
 echo '// Running tests...'
 
 composer --quiet dump --optimize
+find . -name '*bak' -print -delete
 
 vendor/bin/phpspec --no-interaction run -fdot && \
 #    vendor/bin/phpunit && \
