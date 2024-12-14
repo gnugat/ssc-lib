@@ -1,5 +1,7 @@
 # CHANGELOG
 
+## 0.0.6: Fixed coucsous
+
 ## 0.0.5: Tidied up project
 
 * Configured and Applied `ssc/cs` in all of `ssc/lib`
