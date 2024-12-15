@@ -23,6 +23,7 @@
         "phpspec/prophecy-phpunit": "^2.3",
         "phpunit/phpunit": "^10.5.39",
         "ssc/cs": "*@dev",
+        "ssc/cs-tk": "*@dev",
         "symplify/monorepo-builder": "^11.2.22"
     },
     "repositories": [

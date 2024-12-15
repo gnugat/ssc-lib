@@ -19,7 +19,7 @@
 template:
     url: https://github.com/CouscousPHP/Template-Light.git
 
-baseUrl: http://gnugat.github.io/ssc-lib
+baseUrl: https://gnugat.github.io/ssc-lib
 
 title: Super Secret Code - Libaries
 subTitle: Decoupled PHP libraries
@@ -36,6 +36,9 @@ menu:
         cs:
             text: cs
             relativeUrl: packages/cs/index.html
+        cs-tk:
+            text: cs-tk
+            relativeUrl: packages/cs-tk/index.html
         exception:
             text: exception
             relativeUrl: packages/exception/index.html
