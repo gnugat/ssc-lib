@@ -4,7 +4,7 @@ Decoupled PHP libraries.
 
 > _Note_: `ssc/lib` is a **monorepo**, it is not possible to install it in your projects.
 > It contains the code for multiple packages, this is where the changes for these are done.
-> Each package can be installed, individually, in your projects (eg `composer require `ssc/<sub-package>`).
+> Each package can be installed, individually, in your projects (eg `composer require ssc/<sub-package>`).
 
 ## Libraries
 
