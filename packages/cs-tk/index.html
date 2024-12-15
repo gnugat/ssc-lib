@@ -61,32 +61,65 @@
 
                 
                 <section id="content" class="col-sm-offset-3 col-lg-offset-2 col-sm-9 col-lg-10">
-                    <h1 id="super-secret-code---libraries">Super Secret Code - Libraries</h1>
-<p>Decoupled PHP libraries.</p>
-<blockquote>
-<p><em>Note</em>: <code>ssc/lib</code> is a <strong>monorepo</strong>, it is not possible to install it in your projects.
-It contains the code for multiple packages, this is where the changes for these are done.
-Each package can be installed, individually, in your projects (eg <code>composer require</code>ssc/<sub-package>`).</p>
-</blockquote>
-<h2 id="libraries">Libraries</h2>
-<ul>
-<li><a href="./packages/cs/index.html">cs</a></li>
-<li><a href="./packages/cs-tk/index.html">cs-tk</a></li>
-<li><a href="./packages/exception/index.html">exception</a></li>
-</ul>
+                    <h1 id="ssc---cs---toolkit">SSC - CS - Toolkit</h1>
+<p>Maintaining a Coding Standard configuration is hard.</p>
+<p>So here are some tools to help take the load off your mind.</p>
+<h2 id="installation">Installation</h2>
+<pre><code class="language-console">composer require --dev ssc/cs-tk</code></pre>
+<h3 id="format-ssc-config-to-php-cs-fixer">Format SSC config to PHP CS Fixer</h3>
+<p>SSC CS provides a <code>ConfigBuilder</code> to make your life easier:</p>
+<pre><code class="language-php">&lt;?php
+// File: .php-cs-fixer.dist.php
+
+return \Ssc\Cs\ConfigBuilder::forPath(__DIR__)
+    -&gt;build()
+;</code></pre>
+<p>And that works perfectly fine with PHP CS Fixer.</p>
+<p>When Coding Standards are updated in the <code>ssc/cs</code> package, all you need to do
+is run <code>composer update</code> in all your project and they'll all benefit from it.</p>
+<p>But this doesn't show you what rules and configuration is used, you have to
+check the source files for that or rely on the documentation.</p>
+<p>With <code>format-to-pcs</code>, you get to see what the SSC CS config would look like
+if you had manually configured your PHP CS Fixer with equivalent settings.</p>
+<p>Running:</p>
+<pre><code class="language-console">#./ssc-cs-tk format-to-pcs
+php ./bin/format-to-pcs.php</code></pre>
+<p>Will print:</p>
+<pre><code class="language-php">&lt;?php
+
+$finder = (new PhpCsFixer\Finder())
+    -&gt;in(__DIR__)
+    -&gt;exclude('bin')
+    -&gt;exclude('cache')
+    -&gt;exclude('config')
+    -&gt;exclude('doc')
+    -&gt;exclude('logs')
+    -&gt;exclude('public')
+    -&gt;exclude('var')
+;
+
+return (new PhpCsFixer\Config())
+    -&gt;setRules([
+        '@Symfony' =&gt; true,
+        'psr_autoloading' =&gt; true,
+        'php_unit_method_casing' =&gt; [
+            'case' =&gt; 'snake_case',
+        ],
+    ])
+    -&gt;setParallelConfig(ParallelConfigFactory::detect())
+    -&gt;setUsingCache(true)
+    -&gt;setFinder($finder)
+;</code></pre>
 <h2 id="want-to-know-more">Want to know more?</h2>
-<p>You can see the current and past versions using one of the following:</p>
-<ul>
-<li>the <code>git tag</code> command</li>
-<li>the <a href="https://github.com/gnugat/ssc-lib/releases">releases page on Github</a></li>
-<li>the file listing the <a href="changelog.html">changes between versions</a></li>
-</ul>
-<p>And finally some meta documentation:</p>
 <ul>
 <li><a href="LICENSE">copyright and MIT license</a></li>
-<li><a href="versioning.html">versioning and branching models</a></li>
-<li><a href="contributing.html">contribution instructions</a></li>
 </ul>
+<p>You can find more information in the monorepo that groups all SSC libraries:
+<a href="https://github.com/gnugat/ssc-lib/releases">ssc/lib</a></p>
+<blockquote>
+<p><em>Note</em>: No contributions accepted in the libraries' individual repositories,
+Pull Requests and Issues should be submitted to the monorepo linked above instead.</p>
+</blockquote>
                 </section>
 
             </div>

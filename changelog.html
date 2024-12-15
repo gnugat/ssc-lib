@@ -6,16 +6,16 @@
 
         <title>Super Secret Code - Libaries</title>
 
-        <link rel="stylesheet" href="http://gnugat.github.io/ssc-lib/css/bootstrap.min.css">
-        <link rel="stylesheet" href="http://gnugat.github.io/ssc-lib/css/font-awesome.min.css">
-        <link rel="stylesheet" href="http://gnugat.github.io/ssc-lib/css/highlight.dark.css">
-        <link rel="stylesheet" href="http://gnugat.github.io/ssc-lib/css/main.css">
+        <link rel="stylesheet" href="https://gnugat.github.io/ssc-lib/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://gnugat.github.io/ssc-lib/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://gnugat.github.io/ssc-lib/css/highlight.dark.css">
+        <link rel="stylesheet" href="https://gnugat.github.io/ssc-lib/css/main.css">
     </head>
     <body>
 
         <header class="navbar navbar-default navbar-fixed-top">
 
-            <a class="navbar-brand" href="http://gnugat.github.io/ssc-lib/">
+            <a class="navbar-brand" href="https://gnugat.github.io/ssc-lib/">
                 Super Secret Code - Libaries
                 <small class="hidden-xs hidden-sm">
                     Decoupled PHP libraries
@@ -36,17 +36,22 @@
 
                         <ul class="nav nav-pills nav-stacked">
                                                             <li class="">
-                                    <a href="http://gnugat.github.io/ssc-lib/">
+                                    <a href="https://gnugat.github.io/ssc-lib/">
                                         Home
                                     </a>
                                 </li>
                                                             <li class="">
-                                    <a href="http://gnugat.github.io/ssc-lib/packages/cs/index.html">
+                                    <a href="https://gnugat.github.io/ssc-lib/packages/cs/index.html">
                                         cs
                                     </a>
                                 </li>
                                                             <li class="">
-                                    <a href="http://gnugat.github.io/ssc-lib/packages/exception/index.html">
+                                    <a href="https://gnugat.github.io/ssc-lib/packages/cs-tk/index.html">
+                                        cs-tk
+                                    </a>
+                                </li>
+                                                            <li class="">
+                                    <a href="https://gnugat.github.io/ssc-lib/packages/exception/index.html">
                                         exception
                                     </a>
                                 </li>
@@ -57,6 +62,38 @@
                 
                 <section id="content" class="col-sm-offset-3 col-lg-offset-2 col-sm-9 col-lg-10">
                     <h1 id="changelog">CHANGELOG</h1>
+<h2 id="008-created">0.0.8: Created <code>ssc/cs-tk</code> - <code>format-to-pcs</code></h2>
+<p>Maintaining a Coding Standard configuration is hard.</p>
+<p>With <code>format-to-pcs</code>, you get to see what the SSC CS config would look like
+if you had manually configured your PHP CS Fixer with equivalent settings.</p>
+<p>Running:</p>
+<pre><code class="language-console">php ./packages/cs-tk/bin/format-to-pcs.php</code></pre>
+<p>Will print:</p>
+<pre><code class="language-php">&lt;?php
+
+$finder = (new PhpCsFixer\Finder())
+    -&gt;in(__DIR__)
+    -&gt;exclude('bin')
+    -&gt;exclude('cache')
+    -&gt;exclude('config')
+    -&gt;exclude('doc')
+    -&gt;exclude('logs')
+    -&gt;exclude('public')
+    -&gt;exclude('var')
+;
+
+return (new PhpCsFixer\Config())
+    -&gt;setRules([
+        '@Symfony' =&gt; true,
+        'psr_autoloading' =&gt; true,
+        'php_unit_method_casing' =&gt; [
+            'case' =&gt; 'snake_case',
+        ],
+    ])
+    -&gt;setParallelConfig(ParallelConfigFactory::detect())
+    -&gt;setUsingCache(true)
+    -&gt;setFinder($finder)
+;</code></pre>
 <h2 id="007-upgrading">0.0.7: Upgrading <code>ssc/cs</code></h2>
 <ul>
 <li>added <code>config</code>, <code>public</code> and <code>var</code> to the list of excluded folders</li>
