@@ -1,5 +1,48 @@
 # CHANGELOG
 
+## 0.0.8: Created `ssc/cs-tk` - `format-to-pcs`
+
+Maintaining a Coding Standard configuration is hard.
+
+With `format-to-pcs`, you get to see what the SSC CS config would look like
+if you had manually configured your PHP CS Fixer with equivalent settings.
+
+Running:
+
+```console
+php ./packages/cs-tk/bin/format-to-pcs.php
+```
+
+Will print:
+
+```php
+<?php
+
+$finder = (new PhpCsFixer\Finder())
+    ->in(__DIR__)
+    ->exclude('bin')
+    ->exclude('cache')
+    ->exclude('config')
+    ->exclude('doc')
+    ->exclude('logs')
+    ->exclude('public')
+    ->exclude('var')
+;
+
+return (new PhpCsFixer\Config())
+    ->setRules([
+        '@Symfony' => true,
+        'psr_autoloading' => true,
+        'php_unit_method_casing' => [
+            'case' => 'snake_case',
+        ],
+    ])
+    ->setParallelConfig(ParallelConfigFactory::detect())
+    ->setUsingCache(true)
+    ->setFinder($finder)
+;
+```
+
 ## 0.0.7: Upgrading `ssc/cs`
 
 * added `config`, `public` and `var` to the list of excluded folders

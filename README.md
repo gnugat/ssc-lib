@@ -9,6 +9,7 @@ Decoupled PHP libraries.
 ## Libraries
 
 * [cs](./packages/cs/README.md)
+* [cs-tk](./packages/cs-tk/README.md)
 * [exception](./packages/exception/README.md)
 
 ## Want to know more?

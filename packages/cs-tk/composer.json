@@ -1,7 +1,7 @@
 {
-    "name": "ssc/cs",
+    "name": "ssc/cs-tk",
     "type": "library",
-    "description": "SSC - CS",
+    "description": "SSC - CS - Toolkit",
     "license": "MIT",
     "keywords": [
         "ssc"
@@ -15,7 +15,9 @@
     "homepage": "https://gnugat.github.io/ssc-lib",
     "require": {
         "php": "^8.3",
-        "friendsofphp/php-cs-fixer": "^3.65"
+        "friendsofphp/php-cs-fixer": "^3.65",
+        "ssc/cs": "*@dev",
+        "symfony/var-exporter": "^7.2"
     },
     "repositories": [
         {
@@ -25,7 +27,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Ssc\\Cs\\": "src"
+            "Ssc\\CsTk\\": "src"
         }
     },
     "config": {
